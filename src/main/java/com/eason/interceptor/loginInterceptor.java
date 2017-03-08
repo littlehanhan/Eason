@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 public class loginInterceptor implements HandlerInterceptor {
     //拦截器进入controller之前
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
+        if(!httpServletRequest.getRequestURL().toString().contains("home")){
+            System.out.print("拦截器工作");
+            return false;
+        }
         System.out.print("拦截器工作");
         return true;
     }
@@ -21,6 +25,7 @@ public class loginInterceptor implements HandlerInterceptor {
     }
 
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
+       httpServletResponse.sendError(400,"不让你玩");
         System.out.print("拦截器工作");
     }
 }
